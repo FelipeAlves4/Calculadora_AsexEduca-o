@@ -28,5 +28,4 @@ npm run build
 - Campos em reais, percentuais e sliders com atualização imediata.
 - Cadastro detalhado de despesas fixas e operacionais.
 - Cards comparativos, tabela de variações e gráficos em tempo real.
-- Preenchimento com exemplo, cópia do cenário atual, simulação de melhoria, impressão/PDF e modo apresentação.
-- Salvamento temporário no `localStorage`.
+- Preenchimento com exemplo, limpeza dos dados, impressão/PDF, tela cheia e modo apresentação.

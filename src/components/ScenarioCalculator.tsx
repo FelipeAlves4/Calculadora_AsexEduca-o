@@ -1,4 +1,3 @@
-import { Copy, Sparkles } from 'lucide-react';
 import { INDICATOR_CONFIG, REVENUE_DESCRIPTION } from '../data/indicatorConfig';
 import { FinancialScenario, IndicatorKey, ScenarioResults } from '../types/financial';
 import {
@@ -16,26 +15,16 @@ interface ScenarioCalculatorProps {
   results: ScenarioResults;
   onChange: (scenario: FinancialScenario) => void;
   accent: 'current' | 'projected';
-  onCopyCurrent?: () => void;
-  onImprove?: () => void;
 }
 
-export const ScenarioCalculator = ({
-  title,
-  scenario,
-  results,
-  onChange,
-  accent,
-  onCopyCurrent,
-  onImprove,
-}: ScenarioCalculatorProps) => {
+export const ScenarioCalculator = ({ title, scenario, results, onChange, accent }: ScenarioCalculatorProps) => {
   const updateAmount = (key: IndicatorKey, amount: number, max: number) => onChange(updateIndicatorByAmount(scenario, key, amount, max));
   const updatePercentage = (key: IndicatorKey, percentage: number, max: number) =>
     onChange(updateIndicatorByPercentage(scenario, key, percentage, max));
 
   return (
     <section className={`scenario-panel ${accent === 'projected' ? 'scenario-panel-projected' : ''}`}>
-      <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+      <div className="scenario-title-row">
         <div>
           <span className="text-xs font-bold uppercase tracking-[0.22em] text-gold-500">Cenário financeiro</span>
           <h2 className="mt-1 text-2xl font-extrabold uppercase text-white">{title}</h2>
@@ -45,18 +34,6 @@ export const ScenarioCalculator = ({
               : 'Situação financeira atual do negócio'}
           </p>
         </div>
-        {accent === 'projected' && (
-          <div className="flex flex-wrap gap-2">
-            <button type="button" className="mini-action-button" onClick={onCopyCurrent}>
-              <Copy size={15} />
-              Copiar atual
-            </button>
-            <button type="button" className="mini-action-button mini-action-button-gold" onClick={onImprove}>
-              <Sparkles size={15} />
-              Aplicar melhoria
-            </button>
-          </div>
-        )}
       </div>
 
       <div className="indicator-card mb-4">

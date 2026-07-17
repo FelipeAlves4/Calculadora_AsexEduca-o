@@ -29,14 +29,26 @@
 
 @layer components {
   .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 30;
     border-bottom: 1px solid rgba(201, 151, 50, 0.2);
     background:
       linear-gradient(135deg, rgba(2, 7, 19, 0.96), rgba(8, 21, 38, 0.94)),
       radial-gradient(circle at 85% 0%, rgba(201, 151, 50, 0.18), transparent 30rem);
-    backdrop-filter: blur(18px);
+  }
+
+  .brand-pill {
+    @apply mb-3 inline-flex items-center gap-2 rounded-md border border-gold-500/30 bg-white/5 px-3 py-2 text-sm font-semibold text-gold-500;
+  }
+
+  .site-title {
+    @apply text-3xl font-extrabold text-white sm:text-4xl;
+  }
+
+  .site-subtitle {
+    @apply mt-2 text-base leading-relaxed text-slate-300;
+  }
+
+  .header-actions {
+    @apply flex flex-wrap gap-2;
   }
 
   .primary-button,
@@ -76,7 +88,7 @@
   }
 
   .mobile-tabs {
-    @apply sticky top-[105px] z-20 grid grid-cols-3 gap-1 rounded-md border border-white/10 bg-[#071321]/95 p-1 shadow-soft backdrop-blur md:hidden;
+    @apply sticky top-0 z-20 grid grid-cols-3 gap-1 rounded-md border border-white/10 bg-[#071321]/95 p-1 shadow-soft backdrop-blur md:hidden;
   }
 
   .mobile-tab {
@@ -99,6 +111,10 @@
       radial-gradient(circle at top right, rgba(201, 151, 50, 0.11), transparent 24rem);
     box-shadow: 0 22px 50px rgba(0, 0, 0, 0.28);
     padding: 1rem;
+  }
+
+  .scenario-title-row {
+    @apply mb-5 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between;
   }
 
   .scenario-panel-projected {
@@ -298,8 +314,7 @@
   }
 }
 
-.presentation-mode .secondary-action,
-.presentation-mode .status-message {
+.presentation-mode .secondary-action {
   display: none;
 }
 
@@ -308,6 +323,44 @@
 }
 
 @media (max-width: 767px) {
+  .site-header > div {
+    padding-top: 0.9rem;
+    padding-bottom: 0.9rem;
+  }
+
+  .brand-pill {
+    margin-bottom: 0.55rem;
+    padding: 0.45rem 0.65rem;
+    font-size: 0.78rem;
+  }
+
+  .site-title {
+    font-size: 1.55rem;
+    line-height: 1.1;
+  }
+
+  .site-subtitle {
+    margin-top: 0.45rem;
+    font-size: 0.86rem;
+    line-height: 1.45;
+  }
+
+  .header-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.45rem;
+  }
+
+  .header-actions button {
+    min-height: 2.6rem;
+    padding: 0.65rem 0.55rem;
+    font-size: 0.78rem;
+  }
+
+  .header-actions .secondary-action {
+    display: none;
+  }
+
   .mobile-panel-hidden {
     display: none;
   }
@@ -318,6 +371,75 @@
 
   .scenario-grid {
     display: block;
+  }
+
+  .scenario-panel,
+  .content-section {
+    border-radius: 8px;
+    padding: 0.75rem;
+  }
+
+  .scenario-title-row {
+    margin-bottom: 0.9rem;
+  }
+
+  .scenario-title-row h2 {
+    font-size: 1.25rem;
+    line-height: 1.2;
+  }
+
+  .scenario-title-row p {
+    font-size: 0.78rem;
+  }
+
+  .indicator-card {
+    padding: 0.78rem;
+  }
+
+  .indicator-card > div:first-child {
+    align-items: flex-start;
+    gap: 0.65rem;
+  }
+
+  .indicator-card p {
+    font-size: 0.72rem;
+  }
+
+  .field-shell {
+    min-height: 2.35rem;
+  }
+
+  .field-input {
+    padding-left: 0.45rem;
+    padding-right: 0.45rem;
+    font-size: 0.82rem;
+  }
+
+  .field-affix {
+    padding-left: 0.55rem;
+    padding-right: 0.35rem;
+  }
+
+  .profit-card {
+    padding: 0.8rem;
+  }
+
+  .profit-card-title {
+    letter-spacing: 0.18em;
+  }
+
+  .section-heading h2 {
+    font-size: 1.25rem;
+  }
+
+  .metric-card {
+    padding: 0.85rem;
+  }
+
+  .comparison-table-shell th,
+  .comparison-table-shell td {
+    padding: 0.7rem 0.75rem;
+    white-space: nowrap;
   }
 }
 

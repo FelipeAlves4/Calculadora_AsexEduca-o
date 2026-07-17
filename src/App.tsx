@@ -1,13 +1,12 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { ComparisonCards } from './components/ComparisonCards';
 import { ComparisonTable } from './components/ComparisonTable';
 import { Header } from './components/Header';
 import { ResultsCharts } from './components/ResultsCharts';
 import { ScenarioCalculator } from './components/ScenarioCalculator';
 import { createEmptyScenario, exampleCurrentScenario, exampleProjectedScenario } from './data/exampleData';
-import { useLocalStorage } from './hooks/useLocalStorage';
 import { FinancialScenario } from './types/financial';
-import { applyImprovementSimulation, buildComparisonRows, calculateScenario } from './utils/calculations';
+import { buildComparisonRows, calculateScenario } from './utils/calculations';
 
 interface AppState {
   current: FinancialScenario;
@@ -27,8 +26,7 @@ const exampleState = (): AppState => ({
 });
 
 function App() {
-  const [state, setState, restored] = useLocalStorage<AppState>('asex-results-calculator', emptyState());
-  const [message, setMessage] = useState<string | null>(restored ? 'Dados restaurados automaticamente.' : null);
+  const [state, setState] = useState<AppState>(emptyState());
   const [presentationMode, setPresentationMode] = useState(false);
   const [activeTab, setActiveTab] = useState<MobileTab>('current');
 
@@ -36,50 +34,8 @@ function App() {
   const projectedResults = useMemo(() => calculateScenario(state.projected), [state.projected]);
   const comparisonRows = useMemo(() => buildComparisonRows(currentResults, projectedResults), [currentResults, projectedResults]);
 
-  useEffect(() => {
-    const timer = window.setTimeout(() => setMessage('Dados salvos temporariamente.'), 450);
-    return () => window.clearTimeout(timer);
-  }, [state]);
-
-  useEffect(() => {
-    if (!message) {
-      return;
-    }
-
-    const timer = window.setTimeout(() => setMessage(null), 2600);
-    return () => window.clearTimeout(timer);
-  }, [message]);
-
   const setCurrent = (current: FinancialScenario) => setState((previous) => ({ ...previous, current }));
   const setProjected = (projected: FinancialScenario) => setState((previous) => ({ ...previous, projected }));
-
-  const fillExample = () => {
-    setState(exampleState());
-    setMessage('Exemplo preenchido.');
-  };
-
-  const clearData = () => {
-    setState(emptyState());
-    setMessage('Dados limpos.');
-  };
-
-  const copyCurrentToProjected = () => {
-    setState((previous) => ({
-      ...previous,
-      projected: JSON.parse(JSON.stringify(previous.current)) as FinancialScenario,
-    }));
-    setActiveTab('projected');
-    setMessage('Cenário atual copiado para o projetado.');
-  };
-
-  const improveProjection = () => {
-    setState((previous) => ({
-      ...previous,
-      projected: applyImprovementSimulation(previous.current),
-    }));
-    setActiveTab('projected');
-    setMessage('Simulação de melhoria aplicada.');
-  };
 
   const toggleFullscreen = async () => {
     if (!document.fullscreenElement) {
@@ -110,22 +66,19 @@ function App() {
   return (
     <div className={presentationMode ? 'presentation-mode min-h-screen' : 'min-h-screen'}>
       <Header
-        onExample={fillExample}
-        onClear={clearData}
-        onCopyCurrent={copyCurrentToProjected}
-        onImprove={improveProjection}
+        onExample={() => setState(exampleState())}
+        onClear={() => setState(emptyState())}
         onPrint={() => window.print()}
         onFullscreen={toggleFullscreen}
         presentationMode={presentationMode}
         onTogglePresentation={() => setPresentationMode((value) => !value)}
-        message={message}
       />
 
-      <main className="mx-auto grid w-full max-w-7xl gap-6 px-4 py-6 sm:px-6 lg:px-8">
+      <main className="mx-auto grid w-full max-w-7xl gap-4 px-3 py-4 sm:gap-6 sm:px-6 sm:py-6 lg:px-8">
         <nav className="mobile-tabs" aria-label="Seções da calculadora">
           {[
-            ['current', 'Cenário atual'],
-            ['projected', 'Cenário projetado'],
+            ['current', 'Atual'],
+            ['projected', 'Projetado'],
             ['comparison', 'Comparação'],
           ].map(([key, label]) => (
             <button
@@ -156,8 +109,6 @@ function App() {
               results={projectedResults}
               onChange={setProjected}
               accent="projected"
-              onCopyCurrent={copyCurrentToProjected}
-              onImprove={improveProjection}
             />
           </div>
         </div>
