@@ -10,8 +10,35 @@ export const ComparisonTable = ({ rows }: ComparisonTableProps) => {
   const format = (row: ComparisonRow, value: number) => (row.format === 'percentage' ? formatPercentage(value) : formatCurrency(value));
 
   return (
-    <div className="comparison-table-shell">
-      <div className="overflow-x-auto">
+    <>
+      <div className="comparison-mobile-list">
+        {rows.map((row) => (
+          <article key={row.key} className="comparison-mobile-card">
+            <div className="flex items-start justify-between gap-3">
+              <h3>{row.label}</h3>
+              <StatusBadge status={row.status} />
+            </div>
+            <div className="comparison-mobile-values">
+              <div>
+                <span>Atual</span>
+                <strong>{format(row, row.current)}</strong>
+              </div>
+              <div>
+                <span>Projetado</span>
+                <strong>{format(row, row.projected)}</strong>
+              </div>
+            </div>
+            <div className="comparison-mobile-difference">
+              <span>Diferença</span>
+              <strong className={row.status === 'positive' ? 'text-emerald-300' : row.status === 'negative' ? 'text-red-300' : 'text-slate-200'}>
+                {format(row, row.difference)}
+              </strong>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div className="comparison-table-shell">
         <table className="min-w-full text-sm">
           <thead>
             <tr>
@@ -39,7 +66,7 @@ export const ComparisonTable = ({ rows }: ComparisonTableProps) => {
           </tbody>
         </table>
       </div>
-    </div>
+    </>
   );
 };
 

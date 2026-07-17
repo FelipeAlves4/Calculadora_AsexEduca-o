@@ -285,6 +285,41 @@
     @apply overflow-hidden rounded-md border border-white/10 bg-[#0b1b2d];
   }
 
+  .comparison-mobile-list {
+    @apply hidden;
+  }
+
+  .comparison-mobile-card {
+    @apply rounded-md border border-white/10 bg-[#0b1b2d] p-3;
+  }
+
+  .comparison-mobile-card h3 {
+    @apply text-sm font-extrabold text-white;
+  }
+
+  .comparison-mobile-values {
+    @apply mt-3 grid grid-cols-2 gap-2;
+  }
+
+  .comparison-mobile-values div,
+  .comparison-mobile-difference {
+    @apply rounded-md border border-white/10 bg-[#142944] p-2;
+  }
+
+  .comparison-mobile-values span,
+  .comparison-mobile-difference span {
+    @apply block text-[0.68rem] font-bold uppercase tracking-wide text-slate-400;
+  }
+
+  .comparison-mobile-values strong,
+  .comparison-mobile-difference strong {
+    @apply mt-1 block break-words text-sm font-extrabold text-slate-100;
+  }
+
+  .comparison-mobile-difference {
+    @apply mt-2;
+  }
+
   .comparison-table-shell th {
     @apply bg-[#1b3554] px-4 py-3 text-left text-xs font-black uppercase tracking-wide text-gold-500;
   }
@@ -433,13 +468,55 @@
   }
 
   .metric-card {
-    padding: 0.85rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 0.7rem;
+    align-items: center;
+    padding: 0.75rem;
   }
 
-  .comparison-table-shell th,
-  .comparison-table-shell td {
-    padding: 0.7rem 0.75rem;
+  .metric-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    grid-row: span 2;
+  }
+
+  .metric-card span {
+    margin-top: 0;
+    font-size: 0.66rem;
+    line-height: 1.2;
+  }
+
+  .metric-card strong {
+    margin-top: 0.1rem;
+    font-size: 0.98rem;
+    line-height: 1.15;
+    word-break: break-word;
+  }
+
+  .comparison-table-shell {
+    display: none;
+  }
+
+  .comparison-mobile-list {
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .status-badge {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.68rem;
     white-space: nowrap;
+  }
+
+  .chart-frame {
+    padding: 0.75rem;
+    overflow: hidden;
+  }
+
+  .chart-frame h3 {
+    margin-bottom: 0.65rem;
+    font-size: 0.9rem;
   }
 }
 
