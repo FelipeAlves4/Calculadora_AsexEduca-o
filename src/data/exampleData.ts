@@ -42,7 +42,6 @@ export const createEmptyScenario = (): FinancialScenario => ({
     payroll: 0,
     operationalExpenses: 0,
     taxes: 0,
-    laborCost: 0,
   }),
   expenses: createExpenses(0),
 });
@@ -53,10 +52,9 @@ export const exampleCurrentScenario = (): FinancialScenario => {
     cmv: 35,
     waste: 5,
     turnover: 3,
-    payroll: 20,
+    payroll: 25,
     operationalExpenses: 15,
     taxes: 8,
-    laborCost: 5,
   });
 
   return {
@@ -72,10 +70,9 @@ export const exampleProjectedScenario = (): FinancialScenario => {
     cmv: 32,
     waste: 3,
     turnover: 2,
-    payroll: 19,
+    payroll: 24,
     operationalExpenses: 14,
     taxes: 8,
-    laborCost: 5,
   });
 
   return {

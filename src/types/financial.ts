@@ -4,8 +4,7 @@ export type IndicatorKey =
   | 'turnover'
   | 'payroll'
   | 'operationalExpenses'
-  | 'taxes'
-  | 'laborCost';
+  | 'taxes';
 
 export type ComparisonKey = IndicatorKey | 'revenue' | 'totalCosts' | 'monthlyProfit' | 'profitMargin' | 'annualProfit';
 
