@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowRight, ArrowUp } from 'lucide-react';
+import { ArrowRight, ArrowUp } from 'lucide-react';
 import { ComparisonRow } from '../types/financial';
 import { formatCurrency, formatPercentage } from '../utils/formatters';
 
@@ -71,6 +71,10 @@ export const ComparisonTable = ({ rows }: ComparisonTableProps) => {
 };
 
 const StatusBadge = ({ status }: { status: ComparisonRow['status'] }) => {
+  if (status === 'negative') {
+    return null;
+  }
+
   if (status === 'neutral') {
     return (
       <span className="status-badge bg-slate-700/70 text-slate-200">
@@ -81,9 +85,9 @@ const StatusBadge = ({ status }: { status: ComparisonRow['status'] }) => {
   }
 
   return (
-    <span className={`status-badge ${status === 'positive' ? 'bg-emerald-500/15 text-emerald-300' : 'bg-red-500/15 text-red-300'}`}>
-      {status === 'positive' ? <ArrowUp size={15} /> : <ArrowDown size={15} />}
-      {status === 'positive' ? 'Melhoria' : 'Piora'}
+    <span className="status-badge bg-emerald-500/15 text-emerald-300">
+      <ArrowUp size={15} />
+      Melhoria
     </span>
   );
 };
