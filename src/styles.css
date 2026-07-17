@@ -1,0 +1,358 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  :root {
+    color-scheme: dark;
+  }
+
+  body {
+    margin: 0;
+    color: #f8fafc;
+    background:
+      radial-gradient(circle at top left, rgba(201, 151, 50, 0.13), transparent 34rem),
+      linear-gradient(180deg, #020713 0%, #06111f 42%, #081526 100%);
+  }
+
+  button,
+  input {
+    font: inherit;
+  }
+}
+
+@layer components {
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    border-bottom: 1px solid rgba(201, 151, 50, 0.2);
+    background:
+      linear-gradient(135deg, rgba(2, 7, 19, 0.96), rgba(8, 21, 38, 0.94)),
+      radial-gradient(circle at 85% 0%, rgba(201, 151, 50, 0.18), transparent 30rem);
+    backdrop-filter: blur(18px);
+  }
+
+  .primary-button,
+  .secondary-button,
+  .icon-text-button,
+  .icon-button,
+  .mini-action-button {
+    @apply inline-flex items-center justify-center gap-2 rounded-md font-semibold transition focus:outline-none focus:ring-2 focus:ring-gold-500 focus:ring-offset-2 focus:ring-offset-navy-900 disabled:cursor-not-allowed disabled:opacity-35;
+  }
+
+  .primary-button {
+    @apply border border-gold-500 bg-gold-500 px-4 py-3 text-sm text-navy-900 shadow-sm hover:bg-gold-600 hover:text-white;
+  }
+
+  .secondary-button {
+    @apply border border-white/15 bg-white/5 px-4 py-3 text-sm text-slate-100 hover:border-gold-500/50 hover:bg-white/10;
+  }
+
+  .mini-action-button {
+    @apply border border-white/15 bg-white/5 px-3 py-2 text-xs text-slate-100 hover:border-gold-500/50 hover:bg-white/10;
+  }
+
+  .mini-action-button-gold {
+    @apply border-gold-500 bg-gold-500 text-navy-900 hover:bg-gold-600 hover:text-white;
+  }
+
+  .icon-text-button {
+    @apply border border-gold-500/40 bg-gold-500/10 px-3 py-2 text-xs text-gold-500 hover:bg-gold-500/20;
+  }
+
+  .icon-button {
+    @apply h-9 w-9 border border-white/10 bg-white/5;
+  }
+
+  .status-message {
+    @apply w-fit rounded-md border border-gold-500/30 bg-gold-500/15 px-3 py-2 text-sm font-semibold text-gold-500;
+  }
+
+  .mobile-tabs {
+    @apply sticky top-[105px] z-20 grid grid-cols-3 gap-1 rounded-md border border-white/10 bg-[#071321]/95 p-1 shadow-soft backdrop-blur md:hidden;
+  }
+
+  .mobile-tab {
+    @apply rounded-md px-2 py-2 text-xs font-bold text-slate-300 transition hover:bg-white/10;
+  }
+
+  .mobile-tab-active {
+    @apply bg-gold-500 text-navy-900;
+  }
+
+  .scenario-grid {
+    @apply grid gap-6 xl:grid-cols-2;
+  }
+
+  .scenario-panel {
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: 10px;
+    background:
+      linear-gradient(180deg, rgba(13, 33, 56, 0.97), rgba(8, 21, 38, 0.98)),
+      radial-gradient(circle at top right, rgba(201, 151, 50, 0.11), transparent 24rem);
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.28);
+    padding: 1rem;
+  }
+
+  .scenario-panel-projected {
+    border-color: rgba(201, 151, 50, 0.65);
+    box-shadow:
+      0 22px 50px rgba(0, 0, 0, 0.28),
+      0 0 0 1px rgba(201, 151, 50, 0.12) inset;
+  }
+
+  .indicator-card {
+    border: 1px solid rgba(148, 163, 184, 0.13);
+    border-radius: 8px;
+    background: linear-gradient(180deg, rgba(20, 41, 68, 0.96), rgba(15, 34, 58, 0.96));
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.16);
+    padding: 0.9rem;
+    transition:
+      border-color 160ms ease,
+      transform 160ms ease,
+      background 160ms ease;
+  }
+
+  .indicator-card:hover {
+    border-color: rgba(201, 151, 50, 0.42);
+    background: linear-gradient(180deg, rgba(24, 49, 80, 0.98), rgba(15, 34, 58, 0.98));
+  }
+
+  .field-shell {
+    @apply flex min-h-11 w-full items-center overflow-hidden rounded-md border border-gold-500/25 bg-[#0b1b2d] transition focus-within:border-gold-500 focus-within:ring-2 focus-within:ring-gold-500/20;
+  }
+
+  .field-shell-compact {
+    @apply min-h-9;
+  }
+
+  .field-affix {
+    @apply flex h-full items-center px-3 text-xs font-bold text-gold-500;
+  }
+
+  .field-input {
+    @apply min-w-0 flex-1 border-0 bg-transparent px-3 py-2 text-right text-sm font-bold text-white outline-none;
+  }
+
+  .slider {
+    width: 100%;
+    min-height: 32px;
+    cursor: pointer;
+    appearance: none;
+    background: transparent;
+    outline: none;
+  }
+
+  .slider::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(
+      90deg,
+      #c99732 0%,
+      #c99732 var(--slider-progress),
+      rgba(100, 116, 139, 0.38) var(--slider-progress),
+      rgba(100, 116, 139, 0.38) 100%
+    );
+  }
+
+  .slider::-webkit-slider-thumb {
+    width: 16px;
+    height: 16px;
+    margin-top: -6px;
+    appearance: none;
+    border: 2px solid #f2d28d;
+    border-radius: 999px;
+    background: #c99732;
+    box-shadow: 0 0 0 5px rgba(201, 151, 50, 0.14);
+    transition:
+      transform 140ms ease,
+      box-shadow 140ms ease;
+  }
+
+  .slider:active::-webkit-slider-thumb {
+    transform: scale(1.12);
+    box-shadow: 0 0 0 8px rgba(201, 151, 50, 0.18);
+  }
+
+  .slider::-moz-range-track {
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(100, 116, 139, 0.38);
+  }
+
+  .slider::-moz-range-progress {
+    height: 4px;
+    border-radius: 999px;
+    background: #c99732;
+  }
+
+  .slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #f2d28d;
+    border-radius: 999px;
+    background: #c99732;
+  }
+
+  .profit-card {
+    border: 1px solid rgba(201, 151, 50, 0.58);
+    border-radius: 8px;
+    background:
+      linear-gradient(180deg, rgba(7, 19, 33, 0.98), rgba(5, 14, 26, 0.98)),
+      radial-gradient(circle at top, rgba(201, 151, 50, 0.12), transparent 22rem);
+    padding: 1rem;
+    box-shadow: 0 0 0 1px rgba(201, 151, 50, 0.08) inset;
+  }
+
+  .profit-card-title {
+    @apply block text-center text-xs font-black uppercase tracking-[0.28em] text-gold-500;
+  }
+
+  .content-section {
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: 10px;
+    background:
+      linear-gradient(180deg, rgba(13, 33, 56, 0.97), rgba(8, 21, 38, 0.98)),
+      radial-gradient(circle at top right, rgba(201, 151, 50, 0.1), transparent 28rem);
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.25);
+    padding: 1rem;
+  }
+
+  .comparison-stack {
+    @apply grid gap-6;
+  }
+
+  .section-heading {
+    @apply mb-4;
+  }
+
+  .section-heading span {
+    @apply text-xs font-black uppercase tracking-[0.22em] text-gold-500;
+  }
+
+  .section-heading h2 {
+    @apply mt-1 text-2xl font-extrabold uppercase text-white;
+  }
+
+  .metric-card {
+    @apply rounded-md border border-gold-500/40 bg-[#142944] p-4 shadow-sm;
+  }
+
+  .metric-card span {
+    @apply mt-3 block text-xs font-bold uppercase tracking-wide text-slate-300;
+  }
+
+  .metric-card strong {
+    @apply mt-1 block text-xl font-extrabold;
+  }
+
+  .metric-icon {
+    @apply inline-flex h-10 w-10 items-center justify-center rounded-md;
+  }
+
+  .metric-icon-positive {
+    @apply bg-emerald-500/10 text-emerald-300;
+  }
+
+  .metric-icon-negative {
+    @apply bg-red-500/10 text-red-300;
+  }
+
+  .comparison-table-shell {
+    @apply overflow-hidden rounded-md border border-white/10 bg-[#0b1b2d];
+  }
+
+  .comparison-table-shell th {
+    @apply bg-[#1b3554] px-4 py-3 text-left text-xs font-black uppercase tracking-wide text-gold-500;
+  }
+
+  .comparison-table-shell td {
+    @apply border-t border-white/10 px-4 py-3 text-slate-200;
+  }
+
+  .comparison-table-shell tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.025);
+  }
+
+  .comparison-table-shell tbody tr:hover {
+    background: rgba(201, 151, 50, 0.055);
+  }
+
+  .status-badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold;
+  }
+
+  .chart-frame {
+    @apply rounded-md border border-white/10 bg-[#0b1b2d] p-4 shadow-sm;
+  }
+
+  .chart-frame h3 {
+    @apply mb-4 text-base font-extrabold text-white;
+  }
+}
+
+.presentation-mode .secondary-action,
+.presentation-mode .status-message {
+  display: none;
+}
+
+.presentation-mode main {
+  padding-top: 1rem;
+}
+
+@media (max-width: 767px) {
+  .mobile-panel-hidden {
+    display: none;
+  }
+
+  .mobile-panel-active {
+    display: block;
+  }
+
+  .scenario-grid {
+    display: block;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-panel-hidden,
+  .mobile-panel-active {
+    display: block;
+  }
+}
+
+@media (min-width: 640px) {
+  .scenario-panel,
+  .content-section {
+    padding: 1.25rem;
+  }
+}
+
+@media print {
+  .site-header button,
+  .status-message,
+  .mobile-tabs,
+  .slider {
+    display: none !important;
+  }
+
+  body,
+  .min-h-screen {
+    background: #081526 !important;
+  }
+
+  .site-header,
+  .scenario-panel,
+  .content-section {
+    break-inside: avoid;
+    box-shadow: none !important;
+    print-color-adjust: exact;
+  }
+}
