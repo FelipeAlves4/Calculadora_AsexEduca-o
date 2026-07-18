@@ -23,7 +23,7 @@ export const ScenarioCalculator = ({ title, scenario, results, onChange, accent 
     onChange(updateIndicatorByPercentage(scenario, key, percentage, max));
 
   return (
-    <section className={`scenario-panel ${accent === 'projected' ? 'scenario-panel-projected' : ''}`}>
+    <section className={`scenario-panel scenario-panel-${accent}`}>
       <div className="scenario-title-row">
         <div>
           <span className="text-xs font-bold uppercase tracking-[0.22em] text-gold-500">Cenário financeiro</span>

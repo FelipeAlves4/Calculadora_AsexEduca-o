@@ -25,7 +25,20 @@ const currencyTick = (value: number) =>
     maximumFractionDigits: 1,
   }).format(value);
 
-const tooltipFormatter = (value: number | string) => formatCurrency(Number(value));
+const tooltipFormatter = (
+  value: number | string,
+  name: number | string,
+  item: { payload?: { name?: string } },
+) => {
+  const isProjected = name === 'Projetado' || item.payload?.name === 'Projetado';
+  const color = isProjected ? '#c99732' : '#c7cdd6';
+  const label = name === 'value' ? 'Lucro anual' : name;
+
+  return [
+    <span style={{ color, fontWeight: 700 }}>{formatCurrency(Number(value))}</span>,
+    <span style={{ color, fontWeight: 700 }}>{label}</span>,
+  ];
+};
 
 const chartText = { fill: '#cbd5e1', fontSize: 11 };
 const tooltipStyle = {
@@ -34,6 +47,8 @@ const tooltipStyle = {
   borderRadius: 6,
   color: '#ffffff',
 };
+const tooltipItemStyle = { color: '#f8fafc', fontWeight: 700 };
+const tooltipLabelStyle = { color: '#cbd5e1', fontWeight: 600 };
 
 export const ResultsCharts = ({ current, projected }: ResultsChartsProps) => {
   const costComposition = INDICATOR_CONFIG.map((config) => ({
@@ -49,12 +64,12 @@ export const ResultsCharts = ({ current, projected }: ResultsChartsProps) => {
   ];
 
   const annualProfit = [
-    { name: 'Atual', value: current.annualProfit, fill: '#64748b' },
-    { name: 'Projetado', value: projected.annualProfit, fill: '#34d399' },
+    { name: 'Atual', value: current.annualProfit, fill: '#9ca3af' },
+    { name: 'Projetado', value: projected.annualProfit, fill: '#c99732' },
   ];
 
   return (
-    <section className="content-section">
+    <section className="content-section results-charts-section">
       <div className="section-heading">
         <span>Gráficos</span>
         <h2>Leitura visual dos resultados</h2>
@@ -66,10 +81,16 @@ export const ResultsCharts = ({ current, projected }: ResultsChartsProps) => {
               <CartesianGrid stroke="rgba(203, 213, 225, 0.13)" strokeDasharray="3 3" vertical={false} />
               <XAxis dataKey="name" tick={chartText} interval={0} angle={-18} textAnchor="end" height={88} />
               <YAxis tickFormatter={currencyTick} tick={chartText} />
-              <Tooltip formatter={tooltipFormatter} contentStyle={tooltipStyle} cursor={{ fill: 'rgba(255,255,255,0.04)' }} />
+              <Tooltip
+                formatter={tooltipFormatter}
+                contentStyle={tooltipStyle}
+                itemStyle={tooltipItemStyle}
+                labelStyle={tooltipLabelStyle}
+                cursor={{ fill: 'rgba(255,255,255,0.04)' }}
+              />
               <Legend wrapperStyle={{ color: '#cbd5e1' }} />
-              <Bar dataKey="Atual" fill="#64748b" radius={[4, 4, 0, 0]} />
-              <Bar dataKey="Projetado" fill="#34d399" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="Atual" fill="#9ca3af" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="Projetado" fill="#c99732" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </ChartFrame>
@@ -80,10 +101,16 @@ export const ResultsCharts = ({ current, projected }: ResultsChartsProps) => {
               <CartesianGrid stroke="rgba(203, 213, 225, 0.13)" strokeDasharray="3 3" vertical={false} />
               <XAxis dataKey="name" tick={chartText} />
               <YAxis tickFormatter={currencyTick} tick={chartText} />
-              <Tooltip formatter={tooltipFormatter} contentStyle={tooltipStyle} cursor={{ fill: 'rgba(255,255,255,0.04)' }} />
+              <Tooltip
+                formatter={tooltipFormatter}
+                contentStyle={tooltipStyle}
+                itemStyle={tooltipItemStyle}
+                labelStyle={tooltipLabelStyle}
+                cursor={{ fill: 'rgba(255,255,255,0.04)' }}
+              />
               <Legend wrapperStyle={{ color: '#cbd5e1' }} />
-              <Bar dataKey="Atual" fill="#64748b" radius={[4, 4, 0, 0]} />
-              <Bar dataKey="Projetado" fill="#34d399" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="Atual" fill="#9ca3af" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="Projetado" fill="#c99732" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </ChartFrame>
@@ -94,7 +121,13 @@ export const ResultsCharts = ({ current, projected }: ResultsChartsProps) => {
               <CartesianGrid stroke="rgba(203, 213, 225, 0.13)" strokeDasharray="3 3" vertical={false} />
               <XAxis dataKey="name" tick={chartText} />
               <YAxis tickFormatter={currencyTick} tick={chartText} />
-              <Tooltip formatter={tooltipFormatter} contentStyle={tooltipStyle} cursor={{ fill: 'rgba(255,255,255,0.04)' }} />
+              <Tooltip
+                formatter={tooltipFormatter}
+                contentStyle={tooltipStyle}
+                itemStyle={tooltipItemStyle}
+                labelStyle={tooltipLabelStyle}
+                cursor={{ fill: 'rgba(255,255,255,0.04)' }}
+              />
               <Bar dataKey="value" radius={[4, 4, 0, 0]}>
                 {annualProfit.map((entry) => (
                   <Cell key={entry.name} fill={entry.fill} />

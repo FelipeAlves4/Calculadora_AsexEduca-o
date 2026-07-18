@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { ComparisonCards } from './components/ComparisonCards';
 import { ComparisonTable } from './components/ComparisonTable';
 import { Header } from './components/Header';
+import { PrintableReport } from './components/PrintableReport';
 import { ResultsCharts } from './components/ResultsCharts';
 import { ScenarioCalculator } from './components/ScenarioCalculator';
 import { createEmptyScenario, exampleCurrentScenario, exampleProjectedScenario } from './data/exampleData';
@@ -25,8 +26,11 @@ const exampleState = (): AppState => ({
   projected: exampleProjectedScenario(),
 });
 
+const initialState = () =>
+  new URLSearchParams(window.location.search).has('example') ? exampleState() : emptyState();
+
 function App() {
-  const [state, setState] = useState<AppState>(emptyState());
+  const [state, setState] = useState<AppState>(initialState);
   const [presentationMode, setPresentationMode] = useState(false);
   const [activeTab, setActiveTab] = useState<MobileTab>('current');
 
@@ -74,7 +78,17 @@ function App() {
         onTogglePresentation={() => setPresentationMode((value) => !value)}
       />
 
+      <PrintableReport current={currentResults} projected={projectedResults} rows={comparisonRows} />
+
       <main className="mx-auto grid w-full max-w-7xl gap-4 px-3 py-4 sm:gap-6 sm:px-6 sm:py-6 lg:px-8">
+        <div className="print-report-heading" aria-hidden="true">
+          <div>
+            <strong>Relatório comparativo de resultados</strong>
+            <span>Cenário atual e projeção financeira</span>
+          </div>
+          <span>Emitido em {new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long' }).format(new Date())}</span>
+        </div>
+
         <nav className="mobile-tabs" aria-label="Seções da calculadora">
           {[
             ['current', 'Atual'],

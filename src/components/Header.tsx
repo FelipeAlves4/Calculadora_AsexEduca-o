@@ -1,4 +1,4 @@
-import { BarChart3, ClipboardList, Eraser, FileText, Maximize2, Presentation } from 'lucide-react';
+import { BarChart3, ClipboardList, Download, Eraser, Maximize2, Presentation } from 'lucide-react';
 
 interface HeaderProps {
   onExample: () => void;
@@ -41,8 +41,8 @@ export const Header = ({
             Limpar
           </button>
           <button type="button" className="secondary-button secondary-action" onClick={onPrint}>
-            <FileText size={17} />
-            PDF
+            <Download size={17} />
+            Exportar PDF
           </button>
           <button type="button" className="secondary-button secondary-action" onClick={onFullscreen}>
             <Maximize2 size={17} />

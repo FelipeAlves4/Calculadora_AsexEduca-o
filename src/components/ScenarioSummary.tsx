@@ -42,7 +42,7 @@ const SummaryItem = ({
   valueClassName?: string;
   featured?: boolean;
 }) => (
-  <div className="rounded-md border border-white/10 bg-[#142944] p-3">
+  <div className="summary-item rounded-md border border-white/10 bg-[#142944] p-3">
     <span className="block text-xs font-semibold uppercase tracking-wide text-slate-400">{label}</span>
     <strong className={`mt-1 block ${featured ? 'text-xl' : 'text-base'} ${valueClassName}`}>{value}</strong>
   </div>
