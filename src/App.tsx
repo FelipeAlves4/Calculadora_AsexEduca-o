@@ -1,4 +1,7 @@
 import { useMemo, useState } from 'react';
+import { Eraser } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from './auth/AuthContext';
 import { ComparisonCards } from './components/ComparisonCards';
 import { ComparisonTable } from './components/ComparisonTable';
 import { Header } from './components/Header';
@@ -30,9 +33,12 @@ const initialState = () =>
   new URLSearchParams(window.location.search).has('example') ? exampleState() : emptyState();
 
 function App() {
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
   const [state, setState] = useState<AppState>(initialState);
   const [presentationMode, setPresentationMode] = useState(false);
   const [activeTab, setActiveTab] = useState<MobileTab>('current');
+  const [confirmingClear, setConfirmingClear] = useState(false);
 
   const currentResults = useMemo(() => calculateScenario(state.current), [state.current]);
   const projectedResults = useMemo(() => calculateScenario(state.projected), [state.projected]);
@@ -48,6 +54,17 @@ function App() {
     }
 
     await document.exitFullscreen?.();
+  };
+
+  const clearCalculator = () => {
+    setState(emptyState());
+    setConfirmingClear(false);
+  };
+
+  const logout = async () => {
+    setState(emptyState());
+    await signOut();
+    navigate('/login', { replace: true });
   };
 
   const comparisonPanel = (
@@ -71,11 +88,14 @@ function App() {
     <div className={presentationMode ? 'presentation-mode min-h-screen' : 'min-h-screen'}>
       <Header
         onExample={() => setState(exampleState())}
-        onClear={() => setState(emptyState())}
+        onClear={() => setConfirmingClear(true)}
         onPrint={() => window.print()}
         onFullscreen={toggleFullscreen}
         presentationMode={presentationMode}
         onTogglePresentation={() => setPresentationMode((value) => !value)}
+        userName={user?.name || ''}
+        isAdmin={user?.role === 'admin'}
+        onLogout={logout}
       />
 
       <PrintableReport current={currentResults} projected={projectedResults} rows={comparisonRows} />
@@ -131,6 +151,20 @@ function App() {
           {comparisonPanel}
         </div>
       </main>
+
+      {confirmingClear ? (
+        <div className="modal-backdrop" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && setConfirmingClear(false)}>
+          <div className="confirm-modal" role="alertdialog" aria-modal="true" aria-labelledby="clear-title">
+            <div className="confirm-icon confirm-icon-danger"><Eraser size={24} /></div>
+            <h2 id="clear-title">Limpar calculadora</h2>
+            <p>Deseja realmente limpar todos os valores da calculadora?</p>
+            <div className="confirm-actions">
+              <button type="button" onClick={() => setConfirmingClear(false)}>Cancelar</button>
+              <button type="button" className="confirm-danger" onClick={clearCalculator}>Limpar valores</button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -1,4 +1,6 @@
-import { BarChart3, ClipboardList, Download, Eraser, Maximize2, Presentation } from 'lucide-react';
+import { BarChart3, ChevronDown, ClipboardList, Download, Eraser, LockKeyhole, LogOut, Maximize2, Presentation, ShieldCheck, UserRound } from 'lucide-react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 interface HeaderProps {
   onExample: () => void;
@@ -7,6 +9,9 @@ interface HeaderProps {
   onFullscreen: () => void;
   presentationMode: boolean;
   onTogglePresentation: () => void;
+  userName: string;
+  isAdmin: boolean;
+  onLogout: () => Promise<void>;
 }
 
 export const Header = ({
@@ -16,8 +21,13 @@ export const Header = ({
   onFullscreen,
   presentationMode,
   onTogglePresentation,
-}: HeaderProps) => (
-  <header className="site-header">
+  userName,
+  isAdmin,
+  onLogout,
+}: HeaderProps) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  return <header className="site-header">
     <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-4 py-5 sm:px-6 lg:px-8">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div className="max-w-3xl">
@@ -31,14 +41,15 @@ export const Header = ({
           </p>
         </div>
 
-        <div className="header-actions">
+        <div className="header-side">
+          <div className="header-actions">
           <button type="button" className="primary-button" onClick={onExample}>
             <ClipboardList size={17} />
             Exemplo
           </button>
           <button type="button" className="secondary-button" onClick={onClear}>
             <Eraser size={17} />
-            Limpar
+            Limpar calculadora
           </button>
           <button type="button" className="secondary-button secondary-action" onClick={onPrint}>
             <Download size={17} />
@@ -56,8 +67,25 @@ export const Header = ({
             <Presentation size={17} />
             Apresentação
           </button>
+          </div>
+
+          <div className="user-menu">
+            <button type="button" className="user-menu-trigger" onClick={() => setMenuOpen((value) => !value)} aria-expanded={menuOpen}>
+              <span className="user-avatar"><UserRound size={17} /></span>
+              <span className="user-menu-name"><small>Agente conectado</small><strong>{userName}</strong></span>
+              <ChevronDown size={17} />
+            </button>
+            {menuOpen ? (
+              <div className="user-menu-popover">
+                <Link to="/minha-conta" onClick={() => setMenuOpen(false)}><UserRound size={16} /> Minha conta</Link>
+                <Link to="/alterar-senha" onClick={() => setMenuOpen(false)}><LockKeyhole size={16} /> Alterar senha</Link>
+                {isAdmin ? <Link to="/admin" onClick={() => setMenuOpen(false)}><ShieldCheck size={16} /> Área administrativa</Link> : null}
+                <button type="button" onClick={() => void onLogout()}><LogOut size={16} /> Sair</button>
+              </div>
+            ) : null}
+          </div>
         </div>
       </div>
     </div>
-  </header>
-);
+  </header>;
+};
