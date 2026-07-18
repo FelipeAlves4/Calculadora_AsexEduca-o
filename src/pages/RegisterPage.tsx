@@ -54,7 +54,7 @@ export const RegisterPage = () => {
   };
 
   return (
-    <AuthShell eyebrow="CRIAR ACESSO" title="Cadastro de agente" description="Cadastre-se para acessar a Calculadora de Resultados da ASEX Educação.">
+    <AuthShell centerBrand eyebrow="CRIAR ACESSO" title="Cadastro de agente" description="Cadastre-se para acessar a Calculadora de Resultados da ASEX Educação.">
       {message ? <div className="form-alert form-alert-error" role="alert">{message}</div> : null}
       <form className="auth-form" onSubmit={submit} noValidate>
         <FormField label="Nome completo" name="name" value={form.name} onChange={(event) => update('name', event.target.value)} error={errors.name} autoComplete="name" required />

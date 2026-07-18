@@ -1,25 +1,26 @@
-import { BarChart3, LockKeyhole } from 'lucide-react';
+import { LockKeyhole } from 'lucide-react';
 import { ReactNode } from 'react';
 
 export const AuthShell = ({
   eyebrow,
   title,
   description,
+  centerBrand = false,
   children,
 }: {
   eyebrow: string;
   title: string;
   description: string;
+  centerBrand?: boolean;
   children: ReactNode;
 }) => (
   <main className="auth-page">
     <div className="auth-backdrop" aria-hidden="true" />
     <section className="auth-shell">
-      <div className="auth-brand-panel">
-        <div className="auth-brand-mark"><BarChart3 size={24} /></div>
-        <div>
-          <strong>ASEX EDUCAÇÃO</strong>
-          <span>Calculadora de Resultados</span>
+      <div className={`auth-brand-panel${centerBrand ? ' auth-brand-panel-centered' : ''}`}>
+        <div className="auth-brand-identity">
+          <img className="auth-brand-logo" src="/asex-educacao-logo.png" alt="ASEX Educação" />
+          <span className="auth-brand-caption">Calculadora de Resultados</span>
         </div>
         <div className="auth-trust-note">
           <LockKeyhole size={18} />

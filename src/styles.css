@@ -112,21 +112,27 @@
     content: '';
   }
 
-  .auth-brand-mark {
-    @apply grid h-12 w-12 shrink-0 place-items-center rounded-lg border border-gold-500/50 bg-gold-500/10 text-gold-500;
+  .auth-brand-identity {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    width: 100%;
+    justify-items: center;
+    gap: 0.35rem;
   }
 
-  .auth-brand-panel > div:nth-child(2) strong,
-  .auth-brand-panel > div:nth-child(2) span {
+  .auth-brand-logo {
     display: block;
+    width: clamp(7rem, 25vw, 10rem);
+    height: auto;
+    border: 1px solid rgba(255, 255, 255, 0.88);
+    border-radius: 0.85rem;
+    background: #ffffff;
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.32);
   }
 
-  .auth-brand-panel > div:nth-child(2) strong {
-    @apply text-lg font-black tracking-[0.08em] text-white;
-  }
-
-  .auth-brand-panel > div:nth-child(2) span {
-    @apply mt-1 text-sm text-slate-400;
+  .auth-brand-caption {
+    @apply text-center text-sm font-semibold tracking-wide text-slate-300;
   }
 
   .auth-trust-note {
@@ -311,6 +317,8 @@
 @media (min-width: 840px) {
   .auth-shell { grid-template-columns: minmax(18rem, 0.82fr) minmax(27rem, 1.18fr); }
   .auth-brand-panel { min-height: 100%; align-items: flex-start; padding: 2.4rem; border-right: 1px solid rgba(201,151,50,.18); border-bottom: 0; }
+  .auth-brand-panel-centered { align-items: center; }
+  .auth-brand-logo { width: min(100%, 13.5rem); }
   .auth-trust-note { display: flex; left: 2.4rem; bottom: 2.4rem; }
   .auth-card { padding: 2.4rem; }
 }
