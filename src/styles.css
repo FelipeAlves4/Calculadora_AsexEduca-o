@@ -214,6 +214,60 @@
     border-color: #d1d5db;
   }
 
+  .scenario-panel-projected {
+    border-color: rgba(201, 151, 50, 0.72);
+    background:
+      linear-gradient(180deg, rgba(14, 39, 65, 0.98), rgba(7, 20, 36, 0.99)),
+      radial-gradient(circle at top right, rgba(201, 151, 50, 0.2), transparent 26rem);
+    box-shadow:
+      0 22px 50px rgba(0, 0, 0, 0.3),
+      0 0 0 1px rgba(201, 151, 50, 0.15) inset,
+      0 12px 42px rgba(201, 151, 50, 0.08);
+  }
+
+  .scenario-panel-projected .indicator-card {
+    border-color: rgba(201, 151, 50, 0.2);
+    background: linear-gradient(180deg, rgba(20, 46, 75, 0.97), rgba(12, 31, 52, 0.98));
+  }
+
+  .scenario-panel-projected .indicator-card:hover {
+    border-color: rgba(226, 184, 94, 0.52);
+    background: linear-gradient(180deg, rgba(24, 54, 87, 0.98), rgba(13, 34, 57, 0.99));
+  }
+
+  .scenario-panel-projected .field-shell {
+    border-color: rgba(201, 151, 50, 0.34);
+    background: #091827;
+  }
+
+  .scenario-panel-projected .field-shell:focus-within {
+    border-color: #c99732;
+    box-shadow: 0 0 0 2px rgba(201, 151, 50, 0.2);
+  }
+
+  .scenario-panel-projected .summary-item {
+    border-color: rgba(201, 151, 50, 0.16);
+    background: linear-gradient(180deg, #173554, #112a45);
+  }
+
+  .scenario-panel-projected .profit-card .summary-item {
+    background: linear-gradient(180deg, #142e4b, #0e243c);
+  }
+
+  .scenario-panel-projected .indicator-card button {
+    color: #d9ad53;
+  }
+
+  .scenario-panel-projected .indicator-card button:hover {
+    background: rgba(201, 151, 50, 0.14);
+    color: #f2d28d;
+  }
+
+  .scenario-panel-projected .indicator-card .group > span:last-child {
+    border: 1px solid rgba(201, 151, 50, 0.22);
+    background: #071523;
+  }
+
   .indicator-card {
     border: 1px solid rgba(148, 163, 184, 0.13);
     border-radius: 8px;
