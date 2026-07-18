@@ -50,7 +50,7 @@ export const ResultsCharts = ({ current, projected }: ResultsChartsProps) => {
 
   const annualProfit = [
     { name: 'Atual', value: current.annualProfit, fill: '#64748b' },
-    { name: 'Projetado', value: projected.annualProfit, fill: '#c99732' },
+    { name: 'Projetado', value: projected.annualProfit, fill: '#34d399' },
   ];
 
   return (
@@ -69,7 +69,7 @@ export const ResultsCharts = ({ current, projected }: ResultsChartsProps) => {
               <Tooltip formatter={tooltipFormatter} contentStyle={tooltipStyle} cursor={{ fill: 'rgba(255,255,255,0.04)' }} />
               <Legend wrapperStyle={{ color: '#cbd5e1' }} />
               <Bar dataKey="Atual" fill="#64748b" radius={[4, 4, 0, 0]} />
-              <Bar dataKey="Projetado" fill="#c99732" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="Projetado" fill="#34d399" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </ChartFrame>
@@ -83,7 +83,7 @@ export const ResultsCharts = ({ current, projected }: ResultsChartsProps) => {
               <Tooltip formatter={tooltipFormatter} contentStyle={tooltipStyle} cursor={{ fill: 'rgba(255,255,255,0.04)' }} />
               <Legend wrapperStyle={{ color: '#cbd5e1' }} />
               <Bar dataKey="Atual" fill="#64748b" radius={[4, 4, 0, 0]} />
-              <Bar dataKey="Projetado" fill="#c99732" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="Projetado" fill="#34d399" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </ChartFrame>

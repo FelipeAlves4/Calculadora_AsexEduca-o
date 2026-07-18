@@ -118,10 +118,72 @@
   }
 
   .scenario-panel-projected {
-    border-color: rgba(201, 151, 50, 0.65);
+    border-color: rgba(52, 211, 153, 0.72);
+    background:
+      linear-gradient(180deg, rgba(9, 45, 52, 0.98), rgba(7, 27, 39, 0.99)),
+      radial-gradient(circle at top right, rgba(52, 211, 153, 0.2), transparent 26rem);
     box-shadow:
       0 22px 50px rgba(0, 0, 0, 0.28),
-      0 0 0 1px rgba(201, 151, 50, 0.12) inset;
+      0 0 0 1px rgba(52, 211, 153, 0.18) inset,
+      0 12px 40px rgba(16, 185, 129, 0.1);
+  }
+
+  .scenario-panel-projected .text-gold-500,
+  .scenario-panel-projected .field-affix,
+  .scenario-panel-projected .profit-card-title {
+    color: #6ee7b7;
+  }
+
+  .scenario-panel-projected .indicator-card {
+    border-color: rgba(52, 211, 153, 0.2);
+    background: linear-gradient(180deg, rgba(15, 58, 65, 0.96), rgba(10, 39, 50, 0.97));
+  }
+
+  .scenario-panel-projected .indicator-card:hover {
+    border-color: rgba(110, 231, 183, 0.55);
+    background: linear-gradient(180deg, rgba(18, 69, 73, 0.98), rgba(10, 43, 54, 0.98));
+  }
+
+  .scenario-panel-projected .field-shell {
+    border-color: rgba(52, 211, 153, 0.35);
+  }
+
+  .scenario-panel-projected .field-shell:focus-within {
+    border-color: #34d399;
+    box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.2);
+  }
+
+  .scenario-panel-projected .profit-card {
+    border-color: rgba(52, 211, 153, 0.62);
+    background:
+      linear-gradient(180deg, rgba(7, 32, 40, 0.98), rgba(5, 22, 31, 0.98)),
+      radial-gradient(circle at top, rgba(52, 211, 153, 0.15), transparent 22rem);
+    box-shadow: 0 0 0 1px rgba(52, 211, 153, 0.1) inset;
+  }
+
+  .scenario-panel-projected .slider::-webkit-slider-runnable-track {
+    background: linear-gradient(
+      90deg,
+      #34d399 0%,
+      #34d399 var(--slider-progress),
+      rgba(100, 116, 139, 0.38) var(--slider-progress),
+      rgba(100, 116, 139, 0.38) 100%
+    );
+  }
+
+  .scenario-panel-projected .slider::-webkit-slider-thumb {
+    border-color: #a7f3d0;
+    background: #34d399;
+    box-shadow: 0 0 0 5px rgba(52, 211, 153, 0.15);
+  }
+
+  .scenario-panel-projected .slider::-moz-range-progress,
+  .scenario-panel-projected .slider::-moz-range-thumb {
+    background: #34d399;
+  }
+
+  .scenario-panel-projected .slider::-moz-range-thumb {
+    border-color: #a7f3d0;
   }
 
   .indicator-card {

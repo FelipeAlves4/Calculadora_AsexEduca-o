@@ -47,12 +47,12 @@ export const createEmptyScenario = (): FinancialScenario => ({
 });
 
 export const exampleCurrentScenario = (): FinancialScenario => {
-  const revenue = 150000;
+  const revenue = 100000;
   const indicators = createIndicators(revenue, {
-    cmv: 35,
+    cmv: 45,
     waste: 5,
     turnover: 3,
-    payroll: 25,
+    payroll: 15,
     operationalExpenses: 15,
     taxes: 8,
   });
@@ -65,14 +65,14 @@ export const exampleCurrentScenario = (): FinancialScenario => {
 };
 
 export const exampleProjectedScenario = (): FinancialScenario => {
-  const revenue = 165000;
+  const revenue = 150000;
   const indicators = createIndicators(revenue, {
-    cmv: 32,
+    cmv: 29,
     waste: 3,
     turnover: 2,
-    payroll: 24,
-    operationalExpenses: 14,
-    taxes: 8,
+    payroll: 12,
+    operationalExpenses: 13,
+    taxes: 6.5,
   });
 
   return {
