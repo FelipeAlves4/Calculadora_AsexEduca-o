@@ -1,12 +1,27 @@
-import { createRequestHandler } from '../server/app.mjs';
-import { config } from '../server/config.mjs';
-import { bootstrapAdmin, cleanupExpiredRecords, createDatabase } from '../server/database.mjs';
+let handlerPromise;
 
-const handlerPromise = createDatabase(config.databaseUrl).then(async (db) => {
-  await bootstrapAdmin(db);
-  await cleanupExpiredRecords(db);
+const createHandler = async () => {
+  const [{ createRequestHandler }, { config }, databaseModule] = await Promise.all([
+    import('../server/app.mjs'),
+    import('../server/config.mjs'),
+    import('../server/database.mjs'),
+  ]);
+  const db = await databaseModule.createDatabase(config.databaseUrl);
+  await databaseModule.bootstrapAdmin(db);
+  await databaseModule.cleanupExpiredRecords(db);
   return createRequestHandler({ db, config });
-});
+};
+
+const publicInitializationCode = (error) => {
+  const message = String(error?.message || '');
+  if (message.includes('AUTH_SECRET')) return 'AUTH_SECRET_MISSING';
+  if (message.includes('APP_URL')) return 'APP_URL_INVALID';
+  if (error?.code === '28P01') return 'DATABASE_AUTH_FAILED';
+  if (error?.code === '3D000') return 'DATABASE_NOT_FOUND';
+  if (['ENOTFOUND', 'ECONNREFUSED', 'ETIMEDOUT'].includes(error?.code)) return 'DATABASE_UNREACHABLE';
+  if (['EACCES', 'EROFS', 'SQLITE_CANTOPEN'].includes(error?.code)) return 'DATABASE_URL_INVALID';
+  return 'BACKEND_INIT_FAILED';
+};
 
 export default async function handler(req, res) {
   const rewrittenUrl = new URL(req.url, 'http://localhost');
@@ -18,5 +33,14 @@ export default async function handler(req, res) {
     req.url = `/api/${forwardedPath}${query ? `?${query}` : ''}`;
   }
 
-  return (await handlerPromise)(req, res);
+  try {
+    handlerPromise ||= createHandler();
+    return (await handlerPromise)(req, res);
+  } catch (error) {
+    handlerPromise = null;
+    const code = publicInitializationCode(error);
+    console.error('Falha ao inicializar a API:', { code, errorCode: error?.code, message: error?.message });
+    res.writeHead(503, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' });
+    return res.end(JSON.stringify({ status: 'unavailable', code }));
+  }
 }
